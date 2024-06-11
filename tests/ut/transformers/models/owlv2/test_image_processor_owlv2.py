@@ -127,8 +127,8 @@ class Owlv2ImageProcessingTest(ImageProcessingTestMixin, unittest.TestCase):
     @slow
     def test_image_processor_integration_test_resize(self):
         checkpoint = "google/owlv2-base-patch16-ensemble"
-        processor = AutoProcessor.from_pretrained(checkpoint)
-        model = Owlv2ForObjectDetection.from_pretrained(checkpoint, ms_dtype=mindspore.float16)
+        processor = AutoProcessor.from_pretrained(checkpoint, ms_dtype=mindspore.float32)
+        model = Owlv2ForObjectDetection.from_pretrained(checkpoint, ms_dtype=mindspore.float32)
 
         image = Image.open("./tests/fixtures/tests_samples/COCO/000000039769.png")
         text = ["cat"]

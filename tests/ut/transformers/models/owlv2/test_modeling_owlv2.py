@@ -790,7 +790,7 @@ class Owlv2ModelIntegrationTest(unittest.TestCase):
     @slow
     def test_inference(self):
         model_name = "google/owlv2-base-patch16"
-        model = Owlv2Model.from_pretrained(model_name)
+        model = Owlv2Model.from_pretrained(model_name, ms_dtype=mindspore.float32)
         processor = OwlViTProcessor.from_pretrained(model_name)
 
         image = prepare_img()
@@ -821,7 +821,7 @@ class Owlv2ModelIntegrationTest(unittest.TestCase):
     @slow
     def test_inference_object_detection(self):
         model_name = "google/owlv2-base-patch16"
-        model = Owlv2ForObjectDetection.from_pretrained(model_name)
+        model = Owlv2ForObjectDetection.from_pretrained(model_name, ms_dtype=mindspore.float32)
 
         processor = OwlViTProcessor.from_pretrained(model_name)
 
@@ -852,7 +852,7 @@ class Owlv2ModelIntegrationTest(unittest.TestCase):
     @slow
     def test_inference_one_shot_object_detection(self):
         model_name = "google/owlv2-base-patch16"
-        model = Owlv2ForObjectDetection.from_pretrained(model_name, ms_dtype=mindspore.float16)
+        model = Owlv2ForObjectDetection.from_pretrained(model_name, ms_dtype=mindspore.float32)
 
         processor = OwlViTProcessor.from_pretrained(model_name)
 
@@ -880,7 +880,7 @@ class Owlv2ModelIntegrationTest(unittest.TestCase):
     @slow
     def test_inference_one_shot_object_detection_fp16(self):
         model_name = "google/owlv2-base-patch16"
-        model = Owlv2ForObjectDetection.from_pretrained(model_name, ms_dtype=mindspore.float16)
+        model = Owlv2ForObjectDetection.from_pretrained(model_name, ms_dtype=mindspore.float32)
 
         processor = OwlViTProcessor.from_pretrained(model_name)
 

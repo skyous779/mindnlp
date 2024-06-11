@@ -463,9 +463,9 @@ class Owlv2EncoderLayer(nn.Cell):
         super().__init__()
         self.embed_dim = config.hidden_size
         self.self_attn = Owlv2Attention(config)
-        self.layer_norm1 = nn.LayerNorm([self.embed_dim], epsilon=config.layer_norm_eps)
+        self.layer_norm1 = nn.LayerNorm(self.embed_dim, epsilon=config.layer_norm_eps)
         self.mlp = Owlv2MLP(config)
-        self.layer_norm2 = nn.LayerNorm([self.embed_dim], epsilon=config.layer_norm_eps)
+        self.layer_norm2 = nn.LayerNorm(self.embed_dim, epsilon=config.layer_norm_eps)
 
     def construct(
         self,
@@ -659,7 +659,7 @@ class Owlv2TextTransformer(nn.Cell):
         embed_dim = config.hidden_size
         self.embeddings = Owlv2TextEmbeddings(config)
         self.encoder = Owlv2Encoder(config)
-        self.final_layer_norm = nn.LayerNorm([embed_dim], epsilon=config.layer_norm_eps)
+        self.final_layer_norm = nn.LayerNorm(embed_dim, epsilon=config.layer_norm_eps)
 
     def construct(
         self,
@@ -782,9 +782,9 @@ class Owlv2VisionTransformer(nn.Cell):
         self.config = config
 
         self.embeddings = Owlv2VisionEmbeddings(config)
-        self.pre_layernorm = nn.LayerNorm([config.hidden_size], epsilon=config.layer_norm_eps)
+        self.pre_layernorm = nn.LayerNorm(config.hidden_size, epsilon=config.layer_norm_eps)
         self.encoder = Owlv2Encoder(config)
-        self.post_layernorm = nn.LayerNorm([config.hidden_size], epsilon=config.layer_norm_eps)
+        self.post_layernorm = nn.LayerNorm(config.hidden_size, epsilon=config.layer_norm_eps)
 
     def construct(
         self,
@@ -1089,10 +1089,10 @@ class Owlv2BoxPredictionHead(nn.Cell):
         super().__init__()
 
         width = config.vision_config.hidden_size
-        self.dense0 = nn.Dense(width, width)
-        self.dense1 = nn.Dense(width, width)
+        self.dense0 = nn.Dense(width, width, has_bias=True)
+        self.dense1 = nn.Dense(width, width, has_bias=True)
         self.gelu = nn.GELU()
-        self.dense2 = nn.Dense(width, out_dim)
+        self.dense2 = nn.Dense(width, out_dim, has_bias=True)
 
     def construct(self, image_features: mindspore.Tensor) -> mindspore.Tensor:
         output = self.dense0(image_features)
@@ -1162,7 +1162,7 @@ class Owlv2ForObjectDetection(Owlv2PreTrainedModel):
         self.box_head = Owlv2BoxPredictionHead(config)
         self.objectness_head = Owlv2BoxPredictionHead(config, out_dim=1)
 
-        self.layer_norm = nn.LayerNorm([config.vision_config.hidden_size], epsilon=config.vision_config.layer_norm_eps)
+        self.layer_norm = nn.LayerNorm(config.vision_config.hidden_size, epsilon=config.vision_config.layer_norm_eps)
         self.sigmoid = nn.Sigmoid()
 
         self.sqrt_num_patches = config.vision_config.image_size // config.vision_config.patch_size
