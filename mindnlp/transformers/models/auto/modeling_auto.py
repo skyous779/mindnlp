@@ -98,6 +98,7 @@ MODEL_MAPPING_NAMES = OrderedDict(
         ("olmo", "OlmoModel"),
         ("openelm", "OpenELMModel"),
         ("opt", "OPTModel"),
+        ("owlv2", "Owlv2Model"),
         ("pegasus", "PegasusModel"),
         ("phi", "PhiModel"),
         ("phi3", "Phi3Model"),

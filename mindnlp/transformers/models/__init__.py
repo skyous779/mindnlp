@@ -115,6 +115,7 @@ from . import (
     openelm,
     opt,
     owlvit,
+    owlv2,
     pegasus,
     phi,
     phi3,
@@ -256,6 +257,7 @@ from .olmo import *
 from .openelm import *
 from .opt import *
 from .owlvit import *
+from .owlv2 import *
 from .pegasus import *
 from .phi import *
 from .phi3 import *
@@ -397,6 +399,7 @@ __all__.extend(olmo.__all__)
 __all__.extend(openelm.__all__)
 __all__.extend(opt.__all__)
 __all__.extend(owlvit.__all__)
+__all__.extend(owlv2.__all__)
 __all__.extend(pegasus.__all__)
 __all__.extend(phi.__all__)
 __all__.extend(phi3.__all__)
